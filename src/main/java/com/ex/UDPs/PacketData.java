@@ -1,47 +1,62 @@
 package com.ex.UDPs;
 
 public class PacketData {
-  private final byte [] mac; //6 bytes
-  private final byte pt;
-  private final long id;
-  private final long timestamp;
-  private final long latitude;
-  private final long longitude;
-  private boolean valid = true;
+    private final short[] mac; //6 bytes
+    private final long macLong;
+    private final short pt;
+    private final long id;
+    private final long timestamp;
+    private final double latitude;
+    private final double longitude;
+    private boolean valid = true;
 
-  public PacketData(byte[] mac, byte pt, long id, long timestamp, long latitude, long longitude) {
-    this.mac = mac;
-    this.pt = pt;
-    this.id = id;
-    this.timestamp = timestamp;
-    this.latitude = latitude;
-    this.longitude = longitude;
-  }
+    public PacketData(short[] mac, short pt, long id, long timestamp, double latitude, double longitude) {
+        this.mac = mac;
+        long macLong = 0;
+        for(var x : mac) {
+            macLong = (macLong << 8) | x;
+        }
+        this.macLong = macLong;
+        this.pt = pt;
+        this.id = id;
+        this.timestamp = timestamp;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
-  public  byte[] getMac(){
-    return mac;
-  }
-  public byte getPt(){
-    return pt;
-  }
-  public long getId(){
-    return id;
-  }
-  public long getTimestamp(){
-    return timestamp;
-  }
-  public long getLatitude(){
-    return latitude;
-  }
-  public long getLongitude(){
-    return longitude;
-  }
+    public short[] getMac() {
+        return mac;
+    }
 
-  public boolean isValid() {
-    return valid;
-  }
+    public short getPt() {
+        return pt;
+    }
 
-  public void setValid(boolean valid) {
-    this.valid = valid;
-  }
+    public long getId() {
+        return id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public long getMacLong() {
+        return macLong;
+    }
 }
